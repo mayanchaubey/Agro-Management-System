@@ -51,7 +51,7 @@ jobs:
 
       - name: Train production model
         run: |
-          python src/train_production.py
+          python -m src.train_production
 
       - name: Build Docker image
         run: |
