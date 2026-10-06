@@ -7,3 +7,8 @@ jupyter
 ipykernel
 pyyaml
 pytest
+pandera
+mlflow
+fastapi
+uvicorn
+joblib

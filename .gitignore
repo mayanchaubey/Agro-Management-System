@@ -13,3 +13,15 @@ __pycache__/
 
 # Environment files
 .env
+
+# Trained model artifacts
+models/*.joblib
+
+# MLflow local tracking
+mlruns/
+mlflow.db
+
+# Generated evaluation artifacts
+classification_report.csv
+confusion_matrix_*.png
+confusion_matrix*.png

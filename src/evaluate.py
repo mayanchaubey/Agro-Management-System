@@ -1,49 +1,55 @@
+import matplotlib.pyplot as plt
+import pandas as pd
+
 from sklearn.metrics import (
     accuracy_score,
     classification_report,
+    ConfusionMatrixDisplay,
+    f1_score,
+    precision_score,
+    recall_score,
 )
 
-from data_preparation import load_data, split_data
-from train import build_pipeline
 
-import pandas as pd
+def calculate_metrics(y_test, y_pred):
+    return {
+        "accuracy": accuracy_score(y_test, y_pred),
+        "macro_precision": precision_score(
+            y_test, y_pred, average="macro", zero_division=0
+        ),
+        "macro_recall": recall_score(
+            y_test, y_pred, average="macro", zero_division=0
+        ),
+        "macro_f1": f1_score(
+            y_test, y_pred, average="macro", zero_division=0
+        ),
+        "weighted_f1": f1_score(
+            y_test, y_pred, average="weighted", zero_division=0
+        ),
+    }
 
-from sklearn.metrics import ConfusionMatrixDisplay
-import matplotlib.pyplot as plt
 
-
-def evaluate_model(model, X_test, y_test):
-    y_pred = model.predict(X_test)
-
-    accuracy = accuracy_score(y_test, y_pred)
-
-    print(f"Accuracy: {accuracy:.4f}")
-    print("\nClassification Report:")
-    print(classification_report(y_test, y_pred))
-
+def create_classification_report(y_test, y_pred):
     report = classification_report(
-    y_test,
-    y_pred,
-    output_dict=True
+        y_test,
+        y_pred,
+        output_dict=True,
+        zero_division=0,
     )
 
-    report_df = pd.DataFrame(report).T
-    print(report_df)
+    return pd.DataFrame(report).T
+
+
+def save_confusion_matrix(y_test, y_pred, path):
+    fig, ax = plt.subplots(figsize=(12, 8))
+
     ConfusionMatrixDisplay.from_predictions(
-    y_test,
-    y_pred,
-    xticks_rotation=90
+        y_test,
+        y_pred,
+        xticks_rotation=90,
+        ax=ax,
     )
 
     plt.tight_layout()
-    plt.show()
-
-if __name__ == "__main__":
-    X, y = load_data()
-
-    X_train, X_test, y_train, y_test = split_data(X, y)
-
-    model = build_pipeline()
-    model.fit(X_train, y_train)
-
-    evaluate_model(model, X_test, y_test)
+    fig.savefig(path)
+    plt.close(fig)

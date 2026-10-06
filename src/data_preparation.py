@@ -1,7 +1,7 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-from data_validation import FEATURE_COLUMNS, TARGET_COLUMN, validate_data
+from src.data_validation import (FEATURE_COLUMNS, TARGET_COLUMN, validate_data,)
 
 
 def load_data():
