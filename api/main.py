@@ -19,12 +19,16 @@ class CropInput(BaseModel):
     pH_Value: float = Field(ge=0, le=14)
     Rainfall: float = Field(ge=0)
 
-model = joblib.load("models/crop_recommendation_model.joblib")
+def load_model():
+    return joblib.load("models/crop_recommendation_model.joblib")
+
+
 
 @app.post("/predict")
 def predict_crop(data: CropInput):
     input_data = pd.DataFrame([data.model_dump()])
 
+    model = load_model()
     prediction = model.predict(input_data)
 
     return {
