@@ -33,7 +33,7 @@ def test_model(tmp_path, monkeypatch):
     return model
 
 
-def test_predict_crop():
+def test_predict_crop(test_model):
     response = client.post(
         "/predict",
         json={
