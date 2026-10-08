@@ -1,0 +1,27 @@
+# Virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+
+# Pytest cache
+.pytest_cache/
+
+# Environment files
+.env
+
+# Trained model artifacts
+models/*.joblib
+
+# MLflow local tracking
+mlruns/
+mlflow.db
+
+# Generated evaluation artifacts
+classification_report.csv
+confusion_matrix_*.png
+confusion_matrix*.png
